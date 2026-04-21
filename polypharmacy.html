@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Medication List Checker</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    input {
+        padding: 10px;
+        width: 200px;
+    }
+
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        margin: 5px;
+        padding: 8px;
+        background-color: #f0f0f0;
+        display: inline-block;
+    }
+
+    .warning {
+        color: white;
+        background-color: red;
+        font-size: 24px;
+        padding: 20px;
+        margin-top: 20px;
+        display: none;
+    }
+
+    @keyframes blink {
+        0% { background-color: red; }
+        50% { background-color: yellow; }
+        100% { background-color: red; }
+    }
+
+    .blink {
+        animation: blink 0.5s infinite;
+    }
+</style>
+</head>
+<body>
+
+<h1>Medication List</h1>
+
+<input type="text" id="medInput" placeholder="Enter medication">
+<button onclick="addMedication()">Add</button>
+
+<ul id="medList"></ul>
+
+<button onclick="countMedications()">Count Medications</button>
+
+<div id="result"></div>
+
+<div id="warning" class="warning">
+    ⚠️ POLYPHARMACY ALERT ⚠️
+</div>
+
+<audio id="alarmSound">
+    <source src="alarm.aiff" type="audio/aiff">
+</audio>
+
+<audio id="rizzSound">
+    <source src="rizz.aiff" type="audio/aiff">
+</audio>
+
+<script>
+let medications = [];
+
+function addMedication() {
+    const input = document.getElementById('medInput');
+    const value = input.value.trim();
+    const rizz = document.getElementById('rizzSound');
+
+    if (value !== "") {
+        medications.push(value);
+
+        const li = document.createElement('li');
+        li.textContent = value;
+        document.getElementById('medList').appendChild(li);
+
+        input.value = "";
+
+        // Play rizz sound on add
+        rizz.currentTime = 0;
+        rizz.play();
+    }
+}
+
+function countMedications() {
+    const count = medications.length;
+    document.getElementById('result').textContent = 
+        "Total medications: " + count;
+
+    const warningDiv = document.getElementById('warning');
+    const alarm = document.getElementById('alarmSound');
+
+    if (count > 4) {
+        warningDiv.style.display = "block";
+        warningDiv.classList.add("blink");
+
+        alarm.currentTime = 0;
+        alarm.play();
+    } else {
+        warningDiv.style.display = "none";
+        warningDiv.classList.remove("blink");
+        alarm.pause();
+        alarm.currentTime = 0;
+    }
+}
+</script>
+
+</body>
+</html>

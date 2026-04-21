@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ospedale Regionale di Bellinzona – San Giovanni</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --eoc:#005da0;
+            --eoc-light:#0078cc;
+            --eoc-pale:rgba(0,93,160,0.07);
+            --eoc-glow:rgba(0,93,160,0.22);
+            --bg:#f0f4f8;
+            --white:#ffffff;
+            --card-bg:#e8eef6;
+            --card-hover:#dce5f2;
+            --text:#1a2332;
+            --dim:#5a6b7f;
+            --light:#8896a6;
+            --border:#d4dce8;
+            --red:#dc2626;
+            --red-glow:rgba(220,38,38,0.18);
+            --green:#16a34a;
+            --r:14px;
+        }
+        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+```
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);padding:10px 0;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.h-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.eoc-logo{display:flex;align-items:center;gap:10px}
+.eoc-mark{width:44px;height:44px;background:var(--eoc);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px}
+.eoc-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:var(--eoc);line-height:1.2}
+.eoc-sub{font-size:11px;color:var(--dim);font-weight:500}
+.lang-sw{display:flex;gap:2px;background:var(--bg);border-radius:8px;padding:3px;border:1px solid var(--border)}
+.lang-b{padding:5px 10px;border:none;background:transparent;color:var(--dim);font-size:12px;font-weight:600;cursor:pointer;border-radius:6px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.lang-b.active{background:var(--eoc);color:#fff}
+.lang-b:hover:not(.active){color:var(--text);background:var(--white)}
+
+/* SCREENS */
+.scr{display:none;animation:fu .4s ease}.scr.active{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+main{max-width:900px;margin:0 auto;padding:0 20px}
+
+/* WELCOME */
+.welcome{text-align:center;padding:60px 20px 50px;min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.w-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:34px;font-weight:800;letter-spacing:-.8px;color:var(--eoc);margin-bottom:12px;line-height:1.15}
+.w-sub{font-size:15px;color:var(--dim);margin-bottom:40px;line-height:1.5;max-width:500px}
+.qr-box{background:var(--white);border:2px solid var(--eoc-pale);border-radius:18px;padding:28px 32px;margin-bottom:36px;max-width:440px;width:100%;box-shadow:0 4px 16px rgba(0,0,0,0.06)}
+.qr-icon{font-size:48px;margin-bottom:12px}
+.qr-ok{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px}
+.qr-dot{width:10px;height:10px;background:var(--green);border-radius:50%;animation:pd 2s infinite}
+@keyframes pd{0%,100%{opacity:1}50%{opacity:.4}}
+.qr-ok-t{font-size:15px;font-weight:700;color:var(--green)}
+.qr-desc{font-size:13px;color:var(--dim)}
+
+/* BIG FIND BUTTON */
+.btn-find{display:inline-flex;align-items:center;gap:10px;padding:22px 56px;background:var(--eoc);border:none;border-radius:16px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;cursor:pointer;transition:all .25s;box-shadow:0 6px 24px var(--eoc-glow);letter-spacing:-.3px}
+.btn-find:hover{transform:translateY(-3px);box-shadow:0 10px 36px var(--eoc-glow);background:var(--eoc-light)}
+
+/* Address on welcome */
+.w-address{margin-top:32px;font-size:13px;color:var(--dim);line-height:1.6}
+.w-address a{color:var(--eoc);text-decoration:none}
+
+/* Info cards */
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:440px;margin-top:20px;width:100%}
+.info-c{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:left;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.info-c-icon{font-size:24px;margin-bottom:4px}
+.info-c-lbl{font-size:10px;color:var(--light);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.info-c-val{font-size:14px;font-weight:700;color:var(--text)}
+
+/* SEARCH SCREEN */
+.s-screen{padding:28px 0 40px}
+.s-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.s-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;letter-spacing:-.6px;color:var(--eoc)}
+.btn-n{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--white);border:1px solid var(--border);border-radius:10px;color:var(--dim);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-n:hover{color:var(--eoc);border-color:var(--eoc)}
+.s-wrap{position:relative;margin-bottom:24px}
+.s-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--eoc);font-size:16px;pointer-events:none}
+.s-input{width:100%;padding:14px 16px 14px 44px;border-radius:var(--r);border:2px solid var(--border);background:var(--white);color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;transition:all .25s;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.s-input:focus{outline:none;border-color:var(--eoc);box-shadow:0 0 0 3px var(--eoc-pale)}
+.s-input::placeholder{color:var(--light)}
+
+/* DEPARTMENT GRID — bluish cards, no emojis */
+.d-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.d-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:16px 20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.d-card:hover{background:var(--card-hover);border-color:var(--eoc);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.d-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--eoc);opacity:0;transition:opacity .2s}
+.d-card:hover::before{opacity:1}
+.d-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+
+/* DIRECTIONS */
+.dir-s{padding:28px 0 40px}
+.dir-nav{display:flex;gap:10px;margin-bottom:24px}
+.dir-box{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.06)}
+.dir-hd{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.dir-hd-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.4px;color:var(--eoc)}
+.dir-steps{list-style:none}
+.dir-step{padding:14px 0 14px 48px;position:relative;font-size:15px;line-height:1.5;color:var(--text);border-bottom:1px solid var(--border)}
+.dir-step:last-child{border-bottom:none}
+.dir-step-n{position:absolute;left:0;top:12px;width:32px;height:32px;background:var(--eoc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+
+/* EMERGENCY */
+.em-fix{position:fixed;bottom:20px;left:20px;z-index:200;padding:12px 22px;background:var(--red);border:none;border-radius:14px;color:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px var(--red-glow);transition:all .25s}
+.em-fix:hover{transform:scale(1.05);box-shadow:0 6px 24px rgba(220,38,38,.35)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);background:var(--white);padding:36px 20px;margin-top:20px}
+.f-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+.f-brand{display:flex;flex-direction:column;gap:10px}
+.f-brand-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:var(--eoc)}
+.f-brand-d{font-size:12px;color:var(--dim);line-height:1.6}
+.f-eoc{font-size:11px;color:var(--light);margin-top:6px}
+.f-col-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--eoc);margin-bottom:12px}
+.f-col p{font-size:12px;color:var(--dim);line-height:1.8}
+.f-col a{color:var(--eoc);text-decoration:none}
+.f-col a:hover{text-decoration:underline}
+.f-bottom{max-width:900px;margin:20px auto 0;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--light);text-align:center}
+
+/* MAP CTA BUTTON */
+.btn-map-cta{margin-top:14px;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 24px;background:var(--eoc);border:none;border-radius:14px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px var(--eoc-glow);letter-spacing:-.2px}
+.btn-map-cta:hover{background:var(--eoc-light);transform:translateY(-2px);box-shadow:0 8px 28px var(--eoc-glow)}
+
+/* MAP SECTION */
+.map-section{margin-top:28px}
+.map-dest-badge{background:var(--eoc-pale);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+.map-dest-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--eoc);margin-bottom:2px}
+.map-dest-val{font-size:16px;font-weight:700;color:var(--text)}
+.pos-row{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.pos-row-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--eoc);margin-bottom:12px}
+.pos-selects{display:flex;gap:10px;flex-wrap:wrap}
+.pos-select{flex:1;min-width:140px;padding:10px 32px 10px 12px;border:2px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235a6b7f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:border-color .2s}
+.pos-select:focus{border-color:var(--eoc)}
+.btn-calc{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--eoc);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-calc:hover{background:var(--eoc-light)}
+.floor-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.floor-tabs::-webkit-scrollbar{display:none}
+.floor-tab{flex-shrink:0;padding:7px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--dim);cursor:pointer;transition:all .18s;white-space:nowrap}
+.floor-tab.active{background:var(--eoc-pale);border-color:var(--eoc);color:var(--eoc);font-weight:700}
+.map-wrap{background:var(--white);border:1px solid var(--border);border-radius:18px;box-shadow:0 4px 16px rgba(0,0,0,0.06);overflow:hidden;position:relative}
+.map-inner{overflow:hidden;cursor:grab;touch-action:none;height:420px;position:relative;background:var(--bg)}
+.map-inner:active{cursor:grabbing}
+#mapSvg{display:block;transform-origin:0 0;will-change:transform}
+.map-zoom-ctrl{position:absolute;bottom:14px;right:14px;display:flex;flex-direction:column;gap:5px;z-index:10}
+.map-zoom-btn{width:36px;height:36px;background:var(--white);border:1px solid var(--border);border-radius:9px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);box-shadow:0 2px 6px rgba(0,0,0,0.07);transition:background .12s;font-family:'DM Sans',sans-serif;line-height:1}
+.map-zoom-btn:hover{background:var(--card-bg)}
+.map-legend{position:absolute;bottom:14px;left:14px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:10.5px;color:var(--dim);display:flex;flex-direction:column;gap:5px;box-shadow:0 2px 6px rgba(0,0,0,0.06);pointer-events:none;z-index:10}
+.leg-item{display:flex;align-items:center;gap:6px}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.map-dir-panel{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:22px 28px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.map-dir-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);margin-bottom:14px}
+.map-dir-step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;animation:stp .25s ease both}
+@keyframes stp{from{opacity:0;transform:translateX(5px)}to{opacity:1;transform:none}}
+.map-dir-num{width:28px;height:28px;border-radius:50%;background:var(--eoc-pale);color:var(--eoc);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.map-dir-num.dest{background:#dcf5ec;color:var(--green)}
+.map-dir-text{font-size:14px;line-height:1.5;color:var(--text)}
+.map-dir-sub{font-size:11.5px;color:var(--dim);margin-top:2px}
+.map-dir-empty{font-size:14px;color:var(--dim);text-align:center;padding:16px 0;line-height:1.6}
+@keyframes dash{to{stroke-dashoffset:-26}}
+@keyframes mpulse{0%,100%{opacity:.15}50%{opacity:.06}}
+
+@media(max-width:768px){.w-title{font-size:26px}.d-grid{grid-template-columns:1fr}.f-inner{grid-template-columns:1fr;gap:20px}.info-row{grid-template-columns:1fr}.btn-find{padding:18px 40px;font-size:17px}.s-title{font-size:22px}.pos-selects{flex-direction:column}.pos-select{min-width:unset;width:100%}.map-inner{height:300px}.map-dir-panel{padding:16px 18px}}
+```
+
+</style>
+
+</head>
+<body>
+<header>
+    <div class="h-inner">
+        <div class="eoc-logo">
+            <div class="eoc-mark">EOC</div>
+            <div>
+                <div class="eoc-name">Ospedale Regionale di Bellinzona</div>
+                <div class="eoc-sub">San Giovanni · Ente Ospedaliero Cantonale</div>
+            </div>
+        </div>
+        <div class="lang-sw">
+            <button class="lang-b active" onclick="setLang('it')">IT</button>
+            <button class="lang-b" onclick="setLang('de')">DE</button>
+            <button class="lang-b" onclick="setLang('fr')">FR</button>
+            <button class="lang-b" onclick="setLang('en')">EN</button>
+        </div>
+    </div>
+</header>
+<main>
+    <!-- WELCOME -->
+    <div class="scr active" id="welcomeScreen">
+        <div class="welcome">
+            <h1 class="w-title" id="wTitle">Benvenuto all'Ospedale di Bellinzona</h1>
+            <p class="w-sub" id="wSub">Scansiona il codice QR all'ingresso per ottenere indicazioni verso qualsiasi reparto.</p>
+            <div class="qr-box">
+                <div class="qr-icon">🔲</div>
+                <div class="qr-ok">
+                    <div class="qr-dot"></div>
+                    <span class="qr-ok-t" id="qrOk">QR Code scansionato con successo!</span>
+                </div>
+                <p class="qr-desc" id="qrDesc">Ora puoi cercare la tua destinazione.</p>
+            </div>
+            <button class="btn-find" id="btnFind" onclick="showScr('searchScreen')">
+                <span id="btnFindT">Trova il tuo reparto</span> →
+            </button>
+
+```
+    <div class="info-row">
+        <div class="info-c">
+            <div class="info-c-icon">📞</div>
+            <div class="info-c-lbl" id="emLbl">Emergenza</div>
+            <div class="info-c-val">144</div>
+        </div>
+        <div class="info-c">
+            <div class="info-c-icon">📍</div>
+            <div class="info-c-lbl" id="recLbl">Reception</div>
+            <div class="info-c-val" id="recVal">Piano Terra</div>
+        </div>
+    </div>
+</div>
+```
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="scr" id="searchScreen">
+    <div class="s-screen">
+        <div class="s-top">
+            <h2 class="s-title" id="sTitle">Trova il tuo reparto</h2>
+            <button class="btn-n" onclick="showScr('welcomeScreen')">🏠 <span id="hTxt">Home</span></button>
+        </div>
+        <div class="s-wrap">
+            <span class="s-ico">⌕</span>
+            <input type="text" class="s-input" id="sInput" placeholder="Cerca specialità..." oninput="filter()">
+        </div>
+        <div class="d-grid" id="dGrid"></div>
+    </div>
+</div>
+
+<!-- DIRECTIONS -->
+
+<div class="scr" id="dirScreen">
+    <div class="dir-s">
+        <div class="dir-nav">
+            <button class="btn-n" onclick="showScr('searchScreen')">← <span id="bkTxt">Indietro</span></button>
+            <button class="btn-n" onclick="showScr('welcomeScreen')">🏠 <span id="hTxt2">Home</span></button>
+        </div>
+        <div class="dir-box">
+            <div class="dir-hd">
+                <div class="dir-hd-name" id="dirName"></div>
+            </div>
+            <ol class="dir-steps" id="dirSteps"></ol>
+        </div>
+
+```
+    <!-- MAP CTA -->
+    <button class="btn-map-cta" onclick="openMap()">🗺️ <span id="mapCtaLbl">Mostra sulla Mappa</span></button>
+
+    <!-- MAP SECTION (hidden until CTA pressed) -->
+    <div class="map-section" id="mapSection" style="display:none">
+        <div class="map-dest-badge">
+            <div class="map-dest-lbl" id="mapDestLbl">Destinazione</div>
+            <div class="map-dest-val" id="mapDestVal">—</div>
+        </div>
+        <div class="pos-row">
+            <div class="pos-row-title" id="posRowTitle">📍 La tua posizione attuale</div>
+            <div class="pos-selects">
+                <select class="pos-select" id="posFloor" onchange="onPosFloorChange()"></select>
+                <select class="pos-select" id="posRoom"></select>
+                <button class="btn-calc" onclick="calcRoute()">→ <span id="calcLbl">Calcola</span></button>
+            </div>
+        </div>
+        <div class="floor-tabs" id="floorTabs"></div>
+        <div class="map-wrap">
+            <div class="map-inner" id="mapInner">
+                <svg id="mapSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+                <div class="map-zoom-ctrl">
+                    <button class="map-zoom-btn" onclick="doZoom(1.25)">+</button>
+                    <button class="map-zoom-btn" onclick="doZoom(0.8)">−</button>
+                    <button class="map-zoom-btn" onclick="resetView()">⊙</button>
+                </div>
+                <div class="map-legend">
+                    <div class="leg-item"><div class="leg-dot" style="background:#005da0"></div><span id="legRoute">Percorso</span></div>
+                    <div class="leg-item"><div class="leg-dot" style="background:#e67e00"></div><span id="legLm">Punto di riferimento</span></div>
+                    <div class="leg-item"><div class="leg-dot" style="background:#7c3aed"></div><span id="legConn">Ascensore / Scale</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="map-dir-panel">
+            <div class="map-dir-title" id="mapDirTitle">Indicazioni</div>
+            <div id="mapDirSteps"><div class="map-dir-empty" id="mapDirEmpty">Seleziona la tua posizione e premi →</div></div>
+        </div>
+    </div>
+
+</div>
+```
+
+</div>
+
+</main>
+
+<button class="em-fix" id="emBtn" onclick="window.location.href='tel:144'">🚨 EMERGENZA · 144</button>
+
+<footer>
+    <div class="f-inner">
+        <div class="f-brand">
+            <div class="f-brand-n" id="fName">Ospedale Regionale di Bellinzona e Valli</div>
+            <div class="f-brand-d" id="fDesc">Ospedale pubblico polispecialistico dell'Ente Ospedaliero Cantonale (EOC).</div>
+            <div class="f-eoc">©️ Ente Ospedaliero Cantonale (EOC)</div>
+        </div>
+        <div class="f-col">
+            <div class="f-col-t" id="fCLbl">Contatto</div>
+            <p>Via A. Gallino 12<br>CH-6500 Bellinzona<br><a href="tel:+41918119111">+41 91 811 91 11</a><br><a href="mailto:ospedale.bellinzona@eoc.ch">ospedale.bellinzona@eoc.ch</a></p>
+        </div>
+        <div class="f-col">
+            <div class="f-col-t" id="fILbl">Informazioni</div>
+            <p><span id="fVisit">Orari visite: 13:00–20:00</span><br><a href="https://www.eoc.ch" target="_blank">www.eoc.ch</a></p>
+        </div>
+    </div>
+    <div class="f-bottom" id="fLegal">Questo strumento serve esclusivamente come orientamento all'interno dell'ospedale. In caso di emergenza, chiamare il 144.</div>
+</footer>
+
+<script>
+const L={
+it:{wTitle:"Benvenuto all'Ospedale di Bellinzona",wSub:"Scansiona il codice QR all'ingresso per ottenere indicazioni verso qualsiasi reparto.",qrOk:"QR Code scansionato con successo!",qrDesc:"Ora puoi cercare la tua destinazione.",btnFind:"Trova il tuo reparto",sTitle:"Trova il tuo reparto",sPh:"Cerca specialità...",em:"🚨 EMERGENZA · 144",bk:"Indietro",hm:"Home",emL:"Emergenza",recL:"Reception",recV:"Piano Terra",fN:"Ospedale Regionale di Bellinzona e Valli",fD:"Ospedale pubblico polispecialistico dell'Ente Ospedaliero Cantonale (EOC).",cL:"Contatto",iL:"Informazioni",vis:"Orari visite: 13:00–20:00",leg:"Questo strumento serve esclusivamente come orientamento all'interno dell'ospedale. In caso di emergenza, chiamare il 144."},
+de:{wTitle:"Willkommen im Spital Bellinzona",wSub:"Scannen Sie den QR-Code am Eingang, um Wegbeschreibungen zu erhalten.",qrOk:"QR-Code erfolgreich gescannt!",qrDesc:"Sie können jetzt Ihr Ziel suchen.",btnFind:"Finde deine Abteilung",sTitle:"Finde deine Abteilung",sPh:"Fachbereich suchen...",em:"🚨 NOTFALL · 144",bk:"Zurück",hm:"Home",emL:"Notfall",recL:"Empfang",recV:"Erdgeschoss",fN:"Regionalspital Bellinzona und Täler",fD:"Öffentliches Mehrspartenspital des Ente Ospedaliero Cantonale (EOC).",cL:"Kontakt",iL:"Informationen",vis:"Besuchszeiten: 13:00–20:00",leg:"Dieses Tool dient ausschliesslich zur Orientierung im Spital. Im Notfall rufen Sie 144 an."},
+fr:{wTitle:"Bienvenue à l'Hôpital de Bellinzona",wSub:"Scannez le code QR à l'entrée pour obtenir les indications.",qrOk:"Code QR scanné avec succès !",qrDesc:"Vous pouvez maintenant rechercher votre destination.",btnFind:"Trouvez votre département",sTitle:"Trouvez votre département",sPh:"Rechercher une spécialité...",em:"🚨 URGENCE · 144",bk:"Retour",hm:"Accueil",emL:"Urgence",recL:"Réception",recV:"Rez-de-chaussée",fN:"Hôpital Régional de Bellinzona et Vallées",fD:"Hôpital public polyspécialisé de l'Ente Ospedaliero Cantonale (EOC).",cL:"Contact",iL:"Informations",vis:"Heures de visite : 13h00–20h00",leg:"Cet outil sert exclusivement à l'orientation dans l'hôpital. En cas d'urgence, appelez le 144."},
+en:{wTitle:"Welcome to Bellinzona Hospital",wSub:"Scan the QR code at the entrance to get directions to any department.",qrOk:"QR Code scanned successfully!",qrDesc:"You can now search for your destination.",btnFind:"Find your department",sTitle:"Find your department",sPh:"Search specialty...",em:"🚨 EMERGENCY · 144",bk:"Back",hm:"Home",emL:"Emergency",recL:"Reception",recV:"Ground Floor",fN:"Bellinzona Regional Hospital",fD:"Public multi-specialty hospital of the Ente Ospedaliero Cantonale (EOC).",cL:"Contact",iL:"Information",vis:"Visiting hours: 1:00 PM – 8:00 PM",leg:"This tool is for hospital orientation only. In case of emergency, call 144."}
+};
+
+const D=[
+{it:'Pronto Soccorso',de:'Notfallaufnahme',fr:'Urgences',en:'Emergency Room',dir:{it:["Dall'ingresso principale, seguire le indicazioni rosse","Proseguire diritto verso l'ala sinistra","Arrivo al Pronto Soccorso – Piano Terra"],de:["Vom Haupteingang den roten Schildern folgen","Geradeaus zur linken Seite","Notfallaufnahme – Erdgeschoss"],fr:["Depuis l'entrée principale, suivre les panneaux rouges","Continuer tout droit","Urgences – Rez-de-chaussée"],en:["From main entrance, follow red signs","Continue straight to the left wing","Emergency Room – Ground Floor"]}},
+{it:'Medicina Interna',de:'Innere Medizin',fr:'Médecine Interne',en:'Internal Medicine',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Medicina Interna"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Innere Medizin"],fr:["Entrée principale, ascenseurs centraux","2e étage","Médecine Interne"],en:["Main entrance, central elevators","2nd floor","Internal Medicine"]}},
+{it:'Allergologia e Immunologia',de:'Allergologie und Immunologie',fr:'Allergologie et Immunologie',en:'Allergology and Immunology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Allergologia"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Allergologie"],fr:["Entrée principale, ascenseurs centraux","3e étage","Allergologie"],en:["Main entrance, central elevators","3rd floor","Allergology"]}},
+{it:'Anestesiologia',de:'Anästhesiologie',fr:'Anesthésiologie',en:'Anesthesiology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 1° piano","Anestesiologia"],de:["Haupteingang, zentrale Aufzüge","1. Stock","Anästhesiologie"],fr:["Entrée principale, ascenseurs centraux","1er étage","Anesthésiologie"],en:["Main entrance, central elevators","1st floor","Anesthesiology"]}},
+{it:'Medicina Cardiovascolare',de:'Kardiovaskuläre Medizin',fr:'Médecine Cardiovasculaire',en:'Cardiovascular Medicine',dir:{it:["Ingresso principale, ascensori a sinistra","Salire al 2° piano","Cardiologia"],de:["Haupteingang, Aufzüge links","2. Stock","Kardiologie"],fr:["Entrée principale, ascenseurs à gauche","2e étage","Cardiologie"],en:["Main entrance, left elevators","2nd floor","Cardiology"]}},
+{it:'Chirurgia Generale e Viscerale',de:'Allgemein- und Viszeralchirurgie',fr:'Chirurgie Générale et Viscérale',en:'General and Visceral Surgery',dir:{it:["Ingresso principale, ascensori centrali","Salire al 1° piano","Chirurgia"],de:["Haupteingang, zentrale Aufzüge","1. Stock","Chirurgie"],fr:["Entrée principale, ascenseurs centraux","1er étage","Chirurgie"],en:["Main entrance, central elevators","1st floor","Surgery"]}},
+{it:'Chirurgia Toracica',de:'Thoraxchirurgie',fr:'Chirurgie Thoracique',en:'Thoracic Surgery',dir:{it:["Ingresso principale, ascensori centrali","Salire al 1° piano","Chirurgia Toracica"],de:["Haupteingang, zentrale Aufzüge","1. Stock","Thoraxchirurgie"],fr:["Entrée principale, ascenseurs centraux","1er étage","Chirurgie Thoracique"],en:["Main entrance, central elevators","1st floor","Thoracic Surgery"]}},
+{it:'Cure Palliative',de:'Palliativmedizin',fr:'Soins Palliatifs',en:'Palliative Care',dir:{it:["Ingresso principale, ascensori a destra","Salire al 3° piano","Cure Palliative"],de:["Haupteingang, Aufzüge rechts","3. Stock","Palliativstation"],fr:["Entrée principale, ascenseurs à droite","3e étage","Soins Palliatifs"],en:["Main entrance, right elevators","3rd floor","Palliative Care"]}},
+{it:'Dermatologia',de:'Dermatologie',fr:'Dermatologie',en:'Dermatology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Dermatologia"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Dermatologie"],fr:["Entrée principale, ascenseurs centraux","3e étage","Dermatologie"],en:["Main entrance, central elevators","3rd floor","Dermatology"]}},
+{it:'Ematologia',de:'Hämatologie',fr:'Hématologie',en:'Hematology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Ematologia"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Hämatologie"],fr:["Entrée principale, ascenseurs centraux","2e étage","Hématologie"],en:["Main entrance, central elevators","2nd floor","Hematology"]}},
+{it:'Endocrinologia e Diabetologia',de:'Endokrinologie und Diabetologie',fr:'Endocrinologie et Diabétologie',en:'Endocrinology and Diabetology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Endocrinologia"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Endokrinologie"],fr:["Entrée principale, ascenseurs centraux","3e étage","Endocrinologie"],en:["Main entrance, central elevators","3rd floor","Endocrinology"]}},
+{it:'Epatologia',de:'Hepatologie',fr:'Hépatologie',en:'Hepatology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Epatologia"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Hepatologie"],fr:["Entrée principale, ascenseurs centraux","2e étage","Hépatologie"],en:["Main entrance, central elevators","2nd floor","Hepatology"]}},
+{it:'Farmacia',de:'Apotheke',fr:'Pharmacie',en:'Pharmacy',dir:{it:["Ingresso principale, svoltare a destra","Seguire indicazioni Farmacia","Piano Terra"],de:["Haupteingang, rechts abbiegen","Schildern zur Apotheke folgen","Erdgeschoss"],fr:["Entrée principale, tourner à droite","Suivre panneaux Pharmacie","Rez-de-chaussée"],en:["Main entrance, turn right","Follow pharmacy signs","Ground Floor"]}},
+{it:'Gastroenterologia',de:'Gastroenterologie',fr:'Gastroentérologie',en:'Gastroenterology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Gastroenterologia"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Gastroenterologie"],fr:["Entrée principale, ascenseurs centraux","2e étage","Gastroentérologie"],en:["Main entrance, central elevators","2nd floor","Gastroenterology"]}},
+{it:'Geriatria',de:'Geriatrie',fr:'Gériatrie',en:'Geriatrics',dir:{it:["Ingresso principale, ascensori a destra","Salire al 3° piano","Geriatria"],de:["Haupteingang, Aufzüge rechts","3. Stock","Geriatrie"],fr:["Entrée principale, ascenseurs à droite","3e étage","Gériatrie"],en:["Main entrance, right elevators","3rd floor","Geriatrics"]}},
+{it:'Ginecologia e Maternità',de:'Gynäkologie und Geburtshilfe',fr:'Gynécologie et Maternité',en:'Gynecology and Maternity',dir:{it:["Ingresso principale, ascensori a destra","Salire al 2° piano","Ginecologia e Ostetricia"],de:["Haupteingang, Aufzüge rechts","2. Stock","Gynäkologie"],fr:["Entrée principale, ascenseurs à droite","2e étage","Gynécologie"],en:["Main entrance, right elevators","2nd floor","Gynecology"]}},
+{it:'Infettivologia',de:'Infektiologie',fr:'Infectiologie',en:'Infectious Diseases',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Infettivologia"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Infektiologie"],fr:["Entrée principale, ascenseurs centraux","2e étage","Infectiologie"],en:["Main entrance, central elevators","2nd floor","Infectious Diseases"]}},
+{it:"Medicina d'Urgenza",de:'Notfallmedizin',fr:"Médecine d'Urgence",en:'Emergency Medicine',dir:{it:["Ingresso principale, seguire segnali rossi","Proseguire diritto","Pronto Soccorso – Piano Terra"],de:["Haupteingang, roten Schildern folgen","Geradeaus","Notaufnahme – Erdgeschoss"],fr:["Entrée principale, panneaux rouges","Tout droit","Urgences – Rez-de-chaussée"],en:["Main entrance, follow red signs","Continue straight","Emergency – Ground Floor"]}},
+{it:'Medicina Intensiva',de:'Intensivmedizin',fr:'Soins Intensifs',en:'Intensive Care',dir:{it:["Ingresso principale, ascensori centrali","Salire al 1° piano","Terapia Intensiva (accesso limitato)"],de:["Haupteingang, zentrale Aufzüge","1. Stock","Intensivstation"],fr:["Entrée principale, ascenseurs centraux","1er étage","Soins Intensifs"],en:["Main entrance, central elevators","1st floor","ICU (restricted)"]}},
+{it:'Medicina del Sonno',de:'Schlafmedizin',fr:'Médecine du Sommeil',en:'Sleep Medicine',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Medicina del Sonno"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Schlafmedizin"],fr:["Entrée principale, ascenseurs centraux","3e étage","Médecine du Sommeil"],en:["Main entrance, central elevators","3rd floor","Sleep Medicine"]}},
+{it:'Medicina dello Sport',de:'Sportmedizin',fr:'Médecine du Sport',en:'Sports Medicine',dir:{it:["Ingresso principale, ascensori a sinistra","Salire al 1° piano","Medicina dello Sport"],de:["Haupteingang, Aufzüge links","1. Stock","Sportmedizin"],fr:["Entrée principale, ascenseurs à gauche","1er étage","Médecine du Sport"],en:["Main entrance, left elevators","1st floor","Sports Medicine"]}},
+{it:'Medicina di Viaggio',de:'Reisemedizin',fr:'Médecine de Voyage',en:'Travel Medicine',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Medicina di Viaggio"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Reisemedizin"],fr:["Entrée principale, ascenseurs centraux","3e étage","Médecine de Voyage"],en:["Main entrance, central elevators","3rd floor","Travel Medicine"]}},
+{it:'Medicina Riabilitativa',de:'Rehabilitationsmedizin',fr:'Médecine de Réhabilitation',en:'Rehabilitation Medicine',dir:{it:["Ingresso principale, ascensori a destra","Piano Terra","Riabilitazione"],de:["Haupteingang, Aufzüge rechts","Erdgeschoss","Rehabilitation"],fr:["Entrée principale, ascenseurs à droite","Rez-de-chaussée","Réhabilitation"],en:["Main entrance, right elevators","Ground floor","Rehabilitation"]}},
+{it:'Nefrologia',de:'Nephrologie',fr:'Néphrologie',en:'Nephrology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Nefrologia"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Nephrologie"],fr:["Entrée principale, ascenseurs centraux","2e étage","Néphrologie"],en:["Main entrance, central elevators","2nd floor","Nephrology"]}},
+{it:'Neurologia e Neurochirurgia',de:'Neurologie und Neurochirurgie',fr:'Neurologie et Neurochirurgie',en:'Neurology and Neurosurgery',dir:{it:["Ingresso principale, ascensori a sinistra","Salire al 2° piano","Neurologia"],de:["Haupteingang, Aufzüge links","2. Stock","Neurologie"],fr:["Entrée principale, ascenseurs à gauche","2e étage","Neurologie"],en:["Main entrance, left elevators","2nd floor","Neurology"]}},
+{it:'Nutrizione e Dietetica',de:'Ernährung und Diätetik',fr:'Nutrition et Diététique',en:'Nutrition and Dietetics',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Nutrizione"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Ernährungsberatung"],fr:["Entrée principale, ascenseurs centraux","3e étage","Nutrition"],en:["Main entrance, central elevators","3rd floor","Nutrition"]}},
+{it:'Oftalmologia',de:'Ophthalmologie',fr:'Ophtalmologie',en:'Ophthalmology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Oftalmologia"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Augenklinik"],fr:["Entrée principale, ascenseurs centraux","3e étage","Ophtalmologie"],en:["Main entrance, central elevators","3rd floor","Ophthalmology"]}},
+{it:'Oncologia',de:'Onkologie',fr:'Oncologie',en:'Oncology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Istituto Oncologico della Svizzera Italiana"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Onkologisches Institut"],fr:["Entrée principale, ascenseurs centraux","2e étage","Institut Oncologique"],en:["Main entrance, central elevators","2nd floor","Oncology Institute"]}},
+{it:'Ortopedia e Traumatologia',de:'Orthopädie und Traumatologie',fr:'Orthopédie et Traumatologie',en:'Orthopedics and Traumatology',dir:{it:["Ingresso principale, ascensori a destra","Salire al 1° piano","Ortopedia"],de:["Haupteingang, Aufzüge rechts","1. Stock","Orthopädie"],fr:["Entrée principale, ascenseurs à droite","1er étage","Orthopédie"],en:["Main entrance, right elevators","1st floor","Orthopedics"]}},
+{it:'Pediatria',de:'Pädiatrie',fr:'Pédiatrie',en:'Pediatrics',dir:{it:["Ingresso principale, ascensori a sinistra","Salire al 2° piano","Istituto Pediatrico della Svizzera Italiana"],de:["Haupteingang, Aufzüge links","2. Stock","Pädiatrisches Institut"],fr:["Entrée principale, ascenseurs à gauche","2e étage","Institut Pédiatrique"],en:["Main entrance, left elevators","2nd floor","Pediatric Institute"]}},
+{it:'Pneumologia',de:'Pneumologie',fr:'Pneumologie',en:'Pulmonology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 2° piano","Pneumologia"],de:["Haupteingang, zentrale Aufzüge","2. Stock","Pneumologie"],fr:["Entrée principale, ascenseurs centraux","2e étage","Pneumologie"],en:["Main entrance, central elevators","2nd floor","Pulmonology"]}},
+{it:'Radiologia',de:'Radiologie',fr:'Radiologie',en:'Radiology',dir:{it:["Ingresso principale, proseguire diritto","Svoltare a destra al corridoio","Radiologia – Piano Terra"],de:["Haupteingang, geradeaus","Rechts am Korridor","Radiologie – Erdgeschoss"],fr:["Entrée principale, tout droit","Tourner à droite","Radiologie – Rez-de-chaussée"],en:["Main entrance, straight ahead","Turn right at corridor","Radiology – Ground Floor"]}},
+{it:'Reumatologia',de:'Rheumatologie',fr:'Rhumatologie',en:'Rheumatology',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Reumatologia"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Rheumatologie"],fr:["Entrée principale, ascenseurs centraux","3e étage","Rhumatologie"],en:["Main entrance, central elevators","3rd floor","Rheumatology"]}},
+{it:'Urologia',de:'Urologie',fr:'Urologie',en:'Urology',dir:{it:["Ingresso principale, ascensori a destra","Salire al 1° piano","Urologia"],de:["Haupteingang, Aufzüge rechts","1. Stock","Urologie"],fr:["Entrée principale, ascenseurs à droite","1er étage","Urologie"],en:["Main entrance, right elevators","1st floor","Urology"]}},
+{it:'Laboratorio',de:'Labor',fr:'Laboratoire',en:'Laboratory',dir:{it:["Ingresso principale, svoltare a destra","Seguire indicazioni Laboratorio","Piano Terra"],de:["Haupteingang, rechts abbiegen","Schildern zum Labor folgen","Erdgeschoss"],fr:["Entrée principale, tourner à droite","Suivre panneaux Laboratoire","Rez-de-chaussée"],en:["Main entrance, turn right","Follow laboratory signs","Ground Floor"]}},
+{it:'Consultori di Salute Sessuale',de:'Beratungsstelle für sexuelle Gesundheit',fr:'Consultations de Santé Sexuelle',en:'Sexual Health Counseling',dir:{it:["Ingresso principale, ascensori centrali","Salire al 3° piano","Consultori"],de:["Haupteingang, zentrale Aufzüge","3. Stock","Beratungsstelle"],fr:["Entrée principale, ascenseurs centraux","3e étage","Consultations"],en:["Main entrance, central elevators","3rd floor","Counseling clinic"]}}
+];
+
+let cl='it';
+function setLang(l){cl=l;const t=L[l];document.querySelectorAll('.lang-b').forEach(b=>b.classList.remove('active'));document.querySelector(".lang-b[onclick=\"setLang('"+l+"')\"]").classList.add('active');
+document.getElementById('wTitle').textContent=t.wTitle;document.getElementById('wSub').textContent=t.wSub;document.getElementById('qrOk').textContent=t.qrOk;document.getElementById('qrDesc').textContent=t.qrDesc;document.getElementById('btnFindT').textContent=t.btnFind;document.getElementById('sTitle').textContent=t.sTitle;document.getElementById('sInput').placeholder=t.sPh;document.getElementById('emBtn').textContent=t.em;document.getElementById('bkTxt').textContent=t.bk;document.getElementById('hTxt').textContent=t.hm;document.getElementById('hTxt2').textContent=t.hm;document.getElementById('emLbl').textContent=t.emL;document.getElementById('recLbl').textContent=t.recL;document.getElementById('recVal').textContent=t.recV;document.getElementById('fName').textContent=t.fN;document.getElementById('fDesc').textContent=t.fD;document.getElementById('fCLbl').textContent=t.cL;document.getElementById('fILbl').textContent=t.iL;document.getElementById('fVisit').textContent=t.vis;document.getElementById('fLegal').textContent=t.leg;render();}
+
+function showScr(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+
+function render(list){const g=document.getElementById('dGrid');const items=list||D;g.innerHTML=items.map((d,i)=>'<div class="d-card" onclick="showDir('+D.indexOf(d)+')"><div class="d-name">'+d[cl]+'</div></div>').join('');}
+
+function filter(){const q=document.getElementById('sInput').value.toLowerCase();if(!q){render();return;}render(D.filter(d=>d[cl].toLowerCase().includes(q)));}
+
+function showDir(i){const d=D[i];document.getElementById('dirName').textContent=d[cl];document.getElementById('dirSteps').innerHTML=d.dir[cl].map((s,j)=>'<li class="dir-step"><div class="dir-step-n">'+(j+1)+'</div>'+s+'</li>').join('');showScr('dirScreen');}
+
+render();
+
+// ── MAP DATA & STATE ──────────────────────────────────────────────────────────
+const BUILDING={name:"Ospedale Regionale di Bellinzona",floors:[{floorId:"floor_0",label:"Piano Terra",label_de:"Erdgeschoss",label_fr:"Rez-de-chaussée",label_en:"Ground Floor",rooms:[{id:"main_entrance",label:"Ingresso Principale",x:5,y:1,width:4,height:2},{id:"emergency",label:"Pronto Soccorso",x:1,y:1,width:4,height:3},{id:"reception",label:"Reception",x:5,y:3,width:4,height:2},{id:"radiology",label:"Radiologia",x:1,y:5,width:4,height:3},{id:"laboratory",label:"Laboratorio",x:5,y:5,width:3,height:3},{id:"pharmacy",label:"Farmacia",x:9,y:3,width:3,height:3},{id:"rehabilitation",label:"Riabilitazione",x:9,y:6,width:3,height:2},{id:"cafeteria",label:"Mensa",x:13,y:4,width:3,height:3}],landmarks:[{id:"lm_ec0",label:"Ascensori Centrali",x:8,y:8},{id:"lm_el0",label:"Ascensori Sinistra",x:1,y:9},{id:"lm_er0",label:"Ascensori Destra",x:13,y:8},{id:"lm_s0",label:"Scale",x:12,y:1}],nodes:[{id:"n_entrance",x:7,y:2,roomId:"main_entrance"},{id:"n_emergency",x:3,y:2,roomId:"emergency"},{id:"n_reception",x:7,y:4,roomId:"reception"},{id:"n_radiology",x:3,y:6,roomId:"radiology"},{id:"n_laboratory",x:6,y:6,roomId:"laboratory"},{id:"n_pharmacy",x:10,y:4,roomId:"pharmacy"},{id:"n_rehab",x:10,y:7,roomId:"rehabilitation"},{id:"n_cafeteria",x:14,y:5,roomId:"cafeteria"},{id:"n_cor_0_main",x:7,y:6,landmark:"Corridoio Principale"},{id:"n_cor_0_left",x:3,y:8},{id:"n_cor_0_right",x:11,y:6},{id:"n_cor_0_far",x:14,y:7},{id:"n_elev_c_0",x:8,y:8,landmark:"Ascensori Centrali",connector:true,connectorId:"elev_central"},{id:"n_elev_l_0",x:1,y:9,landmark:"Ascensori Sinistra",connector:true,connectorId:"elev_left"},{id:"n_elev_r_0",x:13,y:8,landmark:"Ascensori Destra",connector:true,connectorId:"elev_right"},{id:"n_stair_0",x:12,y:1,landmark:"Scale",connector:true,connectorId:"stair_main"}],edges:[{from:"n_emergency",to:"n_cor_0_left",distance:2},{from:"n_entrance",to:"n_reception",distance:2},{from:"n_reception",to:"n_cor_0_main",distance:2},{from:"n_reception",to:"n_pharmacy",distance:3},{from:"n_radiology",to:"n_cor_0_left",distance:2},{from:"n_laboratory",to:"n_cor_0_main",distance:1},{from:"n_pharmacy",to:"n_cor_0_right",distance:2},{from:"n_rehab",to:"n_cor_0_right",distance:1},{from:"n_cafeteria",to:"n_cor_0_far",distance:2},{from:"n_cor_0_main",to:"n_cor_0_left",distance:4},{from:"n_cor_0_main",to:"n_cor_0_right",distance:4},{from:"n_cor_0_main",to:"n_elev_c_0",distance:2},{from:"n_cor_0_left",to:"n_elev_l_0",distance:1},{from:"n_cor_0_right",to:"n_elev_r_0",distance:2},{from:"n_cor_0_far",to:"n_elev_r_0",distance:1},{from:"n_stair_0",to:"n_cor_0_right",distance:2}]},{floorId:"floor_1",label:"1° Piano",label_de:"1. Stock",label_fr:"1er étage",label_en:"1st Floor",rooms:[{id:"icu",label:"Medicina Intensiva",x:1,y:1,width:5,height:3},{id:"surgery",label:"Chirurgia Generale",x:7,y:1,width:4,height:3},{id:"thoracic_surg",label:"Chirurgia Toracica",x:12,y:1,width:4,height:3},{id:"anesthesia",label:"Anestesiologia",x:1,y:5,width:4,height:3},{id:"orthopedics",label:"Ortopedia",x:6,y:5,width:4,height:3},{id:"urology",label:"Urologia",x:11,y:5,width:4,height:3},{id:"sports_med",label:"Medicina dello Sport",x:1,y:9,width:4,height:2},{id:"nurse_f1",label:"Stazione Infermieri",x:6,y:9,width:3,height:2}],landmarks:[{id:"lm_ec1",label:"Ascensori Centrali",x:8,y:8},{id:"lm_el1",label:"Ascensori Sinistra",x:1,y:8},{id:"lm_er1",label:"Ascensori Destra",x:13,y:8},{id:"lm_s1",label:"Scale",x:12,y:1}],nodes:[{id:"n_icu",x:3,y:2,roomId:"icu"},{id:"n_surgery",x:9,y:2,roomId:"surgery"},{id:"n_thoracic",x:14,y:2,roomId:"thoracic_surg"},{id:"n_anesthesia",x:3,y:6,roomId:"anesthesia"},{id:"n_orthopedics",x:8,y:6,roomId:"orthopedics"},{id:"n_urology",x:13,y:6,roomId:"urology"},{id:"n_sports_med",x:3,y:10,roomId:"sports_med"},{id:"n_nurse_f1",x:7,y:10,roomId:"nurse_f1"},{id:"n_cor_1_main",x:8,y:4,landmark:"Corridoio Principale"},{id:"n_cor_1_left",x:3,y:4},{id:"n_cor_1_right",x:13,y:4},{id:"n_cor_1_bot",x:7,y:8},{id:"n_elev_c_1",x:8,y:8,landmark:"Ascensori Centrali",connector:true,connectorId:"elev_central"},{id:"n_elev_l_1",x:1,y:8,landmark:"Ascensori Sinistra",connector:true,connectorId:"elev_left"},{id:"n_elev_r_1",x:13,y:8,landmark:"Ascensori Destra",connector:true,connectorId:"elev_right"},{id:"n_stair_1",x:12,y:1,landmark:"Scale",connector:true,connectorId:"stair_main"}],edges:[{from:"n_icu",to:"n_cor_1_left",distance:2},{from:"n_surgery",to:"n_cor_1_main",distance:2},{from:"n_thoracic",to:"n_cor_1_right",distance:1},{from:"n_anesthesia",to:"n_cor_1_left",distance:2},{from:"n_orthopedics",to:"n_cor_1_main",distance:2},{from:"n_urology",to:"n_cor_1_right",distance:1},{from:"n_sports_med",to:"n_cor_1_bot",distance:4},{from:"n_nurse_f1",to:"n_cor_1_bot",distance:1},{from:"n_cor_1_main",to:"n_cor_1_left",distance:5},{from:"n_cor_1_main",to:"n_cor_1_right",distance:5},{from:"n_cor_1_main",to:"n_cor_1_bot",distance:4},{from:"n_cor_1_bot",to:"n_elev_c_1",distance:1},{from:"n_cor_1_left",to:"n_elev_l_1",distance:4},{from:"n_cor_1_right",to:"n_elev_r_1",distance:1},{from:"n_stair_1",to:"n_cor_1_right",distance:2}]},{floorId:"floor_2",label:"2° Piano",label_de:"2. Stock",label_fr:"2e étage",label_en:"2nd Floor",rooms:[{id:"internal_med",label:"Medicina Interna",x:1,y:1,width:5,height:3},{id:"cardiology",label:"Cardiologia",x:7,y:1,width:4,height:3},{id:"neurology",label:"Neurologia",x:12,y:1,width:4,height:3},{id:"oncology",label:"Oncologia",x:1,y:5,width:4,height:3},{id:"hematology",label:"Ematologia",x:6,y:5,width:4,height:3},{id:"gastroenterol",label:"Gastroenterologia",x:11,y:5,width:4,height:3},{id:"gynecology",label:"Ginecologia",x:1,y:9,width:4,height:2},{id:"pediatrics",label:"Pediatria",x:6,y:9,width:4,height:2},{id:"infectious_dis",label:"Infettivologia",x:11,y:9,width:4,height:2},{id:"pulmonology",label:"Pneumologia",x:1,y:12,width:4,height:2},{id:"nephrology",label:"Nefrologia",x:6,y:12,width:4,height:2},{id:"hepatology",label:"Epatologia",x:11,y:12,width:4,height:2}],landmarks:[{id:"lm_ec2",label:"Ascensori Centrali",x:8,y:8},{id:"lm_el2",label:"Ascensori Sinistra",x:1,y:8},{id:"lm_er2",label:"Ascensori Destra",x:13,y:8},{id:"lm_s2",label:"Scale",x:16,y:3}],nodes:[{id:"n_internal",x:3,y:2,roomId:"internal_med"},{id:"n_cardiology",x:9,y:2,roomId:"cardiology"},{id:"n_neurology",x:14,y:2,roomId:"neurology"},{id:"n_oncology",x:3,y:6,roomId:"oncology"},{id:"n_hematology",x:8,y:6,roomId:"hematology"},{id:"n_gastroent",x:13,y:6,roomId:"gastroenterol"},{id:"n_gynecology",x:3,y:10,roomId:"gynecology"},{id:"n_pediatrics",x:8,y:10,roomId:"pediatrics"},{id:"n_infectious",x:13,y:10,roomId:"infectious_dis"},{id:"n_pulmonology",x:3,y:13,roomId:"pulmonology"},{id:"n_nephrology",x:8,y:13,roomId:"nephrology"},{id:"n_hepatology",x:13,y:13,roomId:"hepatology"},{id:"n_cor_2_top",x:8,y:4,landmark:"Corridoio Nord"},{id:"n_cor_2_left",x:3,y:8},{id:"n_cor_2_right",x:13,y:8},{id:"n_cor_2_bot",x:8,y:11},{id:"n_elev_c_2",x:8,y:8,landmark:"Ascensori Centrali",connector:true,connectorId:"elev_central"},{id:"n_elev_l_2",x:1,y:8,landmark:"Ascensori Sinistra",connector:true,connectorId:"elev_left"},{id:"n_elev_r_2",x:13,y:8,landmark:"Ascensori Destra",connector:true,connectorId:"elev_right"},{id:"n_stair_2",x:16,y:3,landmark:"Scale",connector:true,connectorId:"stair_main"}],edges:[{from:"n_internal",to:"n_cor_2_top",distance:5},{from:"n_cardiology",to:"n_cor_2_top",distance:1},{from:"n_neurology",to:"n_cor_2_top",distance:6},{from:"n_oncology",to:"n_cor_2_left",distance:2},{from:"n_hematology",to:"n_elev_c_2",distance:2},{from:"n_gastroent",to:"n_cor_2_right",distance:1},{from:"n_gynecology",to:"n_cor_2_left",distance:2},{from:"n_pediatrics",to:"n_cor_2_bot",distance:1},{from:"n_infectious",to:"n_cor_2_right",distance:2},{from:"n_pulmonology",to:"n_cor_2_bot",distance:2},{from:"n_nephrology",to:"n_cor_2_bot",distance:2},{from:"n_hepatology",to:"n_cor_2_bot",distance:2},{from:"n_cor_2_top",to:"n_elev_c_2",distance:4},{from:"n_cor_2_top",to:"n_stair_2",distance:8},{from:"n_cor_2_left",to:"n_elev_l_2",distance:2},{from:"n_cor_2_left",to:"n_elev_c_2",distance:5},{from:"n_cor_2_right",to:"n_elev_r_2",distance:1},{from:"n_cor_2_right",to:"n_elev_c_2",distance:5},{from:"n_cor_2_bot",to:"n_cor_2_left",distance:3},{from:"n_cor_2_bot",to:"n_elev_c_2",distance:3},{from:"n_cor_2_bot",to:"n_cor_2_right",distance:5}]},{floorId:"floor_3",label:"3° Piano",label_de:"3. Stock",label_fr:"3e étage",label_en:"3rd Floor",rooms:[{id:"dermatology",label:"Dermatologia",x:1,y:1,width:4,height:2},{id:"endocrinology",label:"Endocrinologia",x:6,y:1,width:4,height:2},{id:"geriatrics",label:"Geriatria",x:11,y:1,width:4,height:2},{id:"ophthalmology",label:"Oftalmologia",x:1,y:4,width:4,height:2},{id:"rheumatology",label:"Reumatologia",x:6,y:4,width:4,height:2},{id:"palliative",label:"Cure Palliative",x:11,y:4,width:4,height:2},{id:"allergology",label:"Allergologia",x:1,y:7,width:4,height:2},{id:"nutrition",label:"Nutrizione",x:6,y:7,width:4,height:2},{id:"sleep_med",label:"Medicina del Sonno",x:11,y:7,width:4,height:2},{id:"travel_med",label:"Medicina di Viaggio",x:1,y:10,width:4,height:2},{id:"sex_health",label:"Salute Sessuale",x:6,y:10,width:4,height:2},{id:"consultation_3",label:"Consultorio",x:11,y:10,width:4,height:2}],landmarks:[{id:"lm_ec3",label:"Ascensori Centrali",x:8,y:6},{id:"lm_el3",label:"Ascensori Sinistra",x:1,y:6},{id:"lm_er3",label:"Ascensori Destra",x:13,y:6},{id:"lm_s3",label:"Scale",x:16,y:3}],nodes:[{id:"n_dermatology",x:3,y:2,roomId:"dermatology"},{id:"n_endocrinology",x:8,y:2,roomId:"endocrinology"},{id:"n_geriatrics",x:13,y:2,roomId:"geriatrics"},{id:"n_ophthalmology",x:3,y:5,roomId:"ophthalmology"},{id:"n_rheumatology",x:8,y:5,roomId:"rheumatology"},{id:"n_palliative",x:13,y:5,roomId:"palliative"},{id:"n_allergology",x:3,y:8,roomId:"allergology"},{id:"n_nutrition",x:8,y:8,roomId:"nutrition"},{id:"n_sleep_med",x:13,y:8,roomId:"sleep_med"},{id:"n_travel_med",x:3,y:11,roomId:"travel_med"},{id:"n_sex_health",x:8,y:11,roomId:"sex_health"},{id:"n_consultation",x:13,y:11,roomId:"consultation_3"},{id:"n_cor_3_top",x:8,y:3,landmark:"Corridoio Nord"},{id:"n_cor_3_bot",x:8,y:9},{id:"n_elev_c_3",x:8,y:6,landmark:"Ascensori Centrali",connector:true,connectorId:"elev_central"},{id:"n_elev_l_3",x:1,y:6,landmark:"Ascensori Sinistra",connector:true,connectorId:"elev_left"},{id:"n_elev_r_3",x:13,y:6,landmark:"Ascensori Destra",connector:true,connectorId:"elev_right"},{id:"n_stair_3",x:16,y:3,landmark:"Scale",connector:true,connectorId:"stair_main"}],edges:[{from:"n_dermatology",to:"n_cor_3_top",distance:5},{from:"n_endocrinology",to:"n_cor_3_top",distance:1},{from:"n_geriatrics",to:"n_cor_3_top",distance:5},{from:"n_ophthalmology",to:"n_elev_l_3",distance:1},{from:"n_rheumatology",to:"n_elev_c_3",distance:1},{from:"n_palliative",to:"n_elev_r_3",distance:1},{from:"n_allergology",to:"n_cor_3_bot",distance:5},{from:"n_nutrition",to:"n_cor_3_bot",distance:1},{from:"n_sleep_med",to:"n_cor_3_bot",distance:5},{from:"n_travel_med",to:"n_cor_3_bot",distance:2},{from:"n_sex_health",to:"n_cor_3_bot",distance:3},{from:"n_consultation",to:"n_cor_3_bot",distance:2},{from:"n_cor_3_top",to:"n_elev_c_3",distance:3},{from:"n_cor_3_top",to:"n_stair_3",distance:8},{from:"n_elev_l_3",to:"n_elev_c_3",distance:7},{from:"n_elev_r_3",to:"n_elev_c_3",distance:5},{from:"n_elev_c_3",to:"n_cor_3_bot",distance:3}]}],connectors:[{id:"elev_central",label:"Ascensori Centrali",type:"elevator",connections:["n_elev_c_0","n_elev_c_1","n_elev_c_2","n_elev_c_3"]},{id:"elev_left",label:"Ascensori Sinistra",type:"elevator",connections:["n_elev_l_0","n_elev_l_1","n_elev_l_2","n_elev_l_3"]},{id:"elev_right",label:"Ascensori Destra",type:"elevator",connections:["n_elev_r_0","n_elev_r_1","n_elev_r_2","n_elev_r_3"]},{id:"stair_main",label:"Scale",type:"stairs",connections:["n_stair_0","n_stair_1","n_stair_2","n_stair_3"]}]};
+
+// dept → roomId/floorId mapping
+const DEPT_MAP={
+  'Pronto Soccorso':{roomId:'emergency',floorId:'floor_0'},'Notfallaufnahme':{roomId:'emergency',floorId:'floor_0'},'Urgences':{roomId:'emergency',floorId:'floor_0'},'Emergency Room':{roomId:'emergency',floorId:'floor_0'},
+  'Medicina Interna':{roomId:'internal_med',floorId:'floor_2'},'Innere Medizin':{roomId:'internal_med',floorId:'floor_2'},'Médecine Interne':{roomId:'internal_med',floorId:'floor_2'},'Internal Medicine':{roomId:'internal_med',floorId:'floor_2'},
+  'Allergologia e Immunologia':{roomId:'allergology',floorId:'floor_3'},'Allergologie und Immunologie':{roomId:'allergology',floorId:'floor_3'},'Allergologie et Immunologie':{roomId:'allergology',floorId:'floor_3'},'Allergology and Immunology':{roomId:'allergology',floorId:'floor_3'},
+  'Anestesiologia':{roomId:'anesthesia',floorId:'floor_1'},'Anästhesiologie':{roomId:'anesthesia',floorId:'floor_1'},'Anesthésiologie':{roomId:'anesthesia',floorId:'floor_1'},'Anesthesiology':{roomId:'anesthesia',floorId:'floor_1'},
+  'Medicina Cardiovascolare':{roomId:'cardiology',floorId:'floor_2'},'Kardiovaskuläre Medizin':{roomId:'cardiology',floorId:'floor_2'},'Médecine Cardiovasculaire':{roomId:'cardiology',floorId:'floor_2'},'Cardiovascular Medicine':{roomId:'cardiology',floorId:'floor_2'},
+  'Chirurgia Generale e Viscerale':{roomId:'surgery',floorId:'floor_1'},'Allgemein- und Viszeralchirurgie':{roomId:'surgery',floorId:'floor_1'},'Chirurgie Générale et Viscérale':{roomId:'surgery',floorId:'floor_1'},'General and Visceral Surgery':{roomId:'surgery',floorId:'floor_1'},
+  'Chirurgia Toracica':{roomId:'thoracic_surg',floorId:'floor_1'},'Thoraxchirurgie':{roomId:'thoracic_surg',floorId:'floor_1'},'Chirurgie Thoracique':{roomId:'thoracic_surg',floorId:'floor_1'},'Thoracic Surgery':{roomId:'thoracic_surg',floorId:'floor_1'},
+  'Cure Palliative':{roomId:'palliative',floorId:'floor_3'},'Palliativmedizin':{roomId:'palliative',floorId:'floor_3'},'Soins Palliatifs':{roomId:'palliative',floorId:'floor_3'},'Palliative Care':{roomId:'palliative',floorId:'floor_3'},
+  'Dermatologia':{roomId:'dermatology',floorId:'floor_3'},'Dermatologie':{roomId:'dermatology',floorId:'floor_3'},'Dermatology':{roomId:'dermatology',floorId:'floor_3'},
+  'Ematologia':{roomId:'hematology',floorId:'floor_2'},'Hämatologie':{roomId:'hematology',floorId:'floor_2'},'Hématologie':{roomId:'hematology',floorId:'floor_2'},'Hematology':{roomId:'hematology',floorId:'floor_2'},
+  'Endocrinologia e Diabetologia':{roomId:'endocrinology',floorId:'floor_3'},'Endokrinologie und Diabetologie':{roomId:'endocrinology',floorId:'floor_3'},'Endocrinologie et Diabétologie':{roomId:'endocrinology',floorId:'floor_3'},'Endocrinology and Diabetology':{roomId:'endocrinology',floorId:'floor_3'},
+  'Epatologia':{roomId:'hepatology',floorId:'floor_2'},'Hepatologie':{roomId:'hepatology',floorId:'floor_2'},'Hépatologie':{roomId:'hepatology',floorId:'floor_2'},'Hepatology':{roomId:'hepatology',floorId:'floor_2'},
+  'Farmacia':{roomId:'pharmacy',floorId:'floor_0'},'Apotheke':{roomId:'pharmacy',floorId:'floor_0'},'Pharmacie':{roomId:'pharmacy',floorId:'floor_0'},'Pharmacy':{roomId:'pharmacy',floorId:'floor_0'},
+  'Gastroenterologia':{roomId:'gastroenterol',floorId:'floor_2'},'Gastroenterologie':{roomId:'gastroenterol',floorId:'floor_2'},'Gastroentérologie':{roomId:'gastroenterol',floorId:'floor_2'},'Gastroenterology':{roomId:'gastroenterol',floorId:'floor_2'},
+  'Geriatria':{roomId:'geriatrics',floorId:'floor_3'},'Geriatrie':{roomId:'geriatrics',floorId:'floor_3'},'Gériatrie':{roomId:'geriatrics',floorId:'floor_3'},'Geriatrics':{roomId:'geriatrics',floorId:'floor_3'},
+  'Ginecologia e Maternità':{roomId:'gynecology',floorId:'floor_2'},'Gynäkologie und Geburtshilfe':{roomId:'gynecology',floorId:'floor_2'},'Gynécologie et Maternité':{roomId:'gynecology',floorId:'floor_2'},'Gynecology and Maternity':{roomId:'gynecology',floorId:'floor_2'},
+  'Infettivologia':{roomId:'infectious_dis',floorId:'floor_2'},'Infektiologie':{roomId:'infectious_dis',floorId:'floor_2'},'Infectiologie':{roomId:'infectious_dis',floorId:'floor_2'},'Infectious Diseases':{roomId:'infectious_dis',floorId:'floor_2'},
+  "Medicina d'Urgenza":{roomId:'emergency',floorId:'floor_0'},'Notfallmedizin':{roomId:'emergency',floorId:'floor_0'},"Médecine d'Urgence":{roomId:'emergency',floorId:'floor_0'},'Emergency Medicine':{roomId:'emergency',floorId:'floor_0'},
+  'Medicina Intensiva':{roomId:'icu',floorId:'floor_1'},'Intensivmedizin':{roomId:'icu',floorId:'floor_1'},'Soins Intensifs':{roomId:'icu',floorId:'floor_1'},'Intensive Care':{roomId:'icu',floorId:'floor_1'},
+  'Medicina del Sonno':{roomId:'sleep_med',floorId:'floor_3'},'Schlafmedizin':{roomId:'sleep_med',floorId:'floor_3'},'Médecine du Sommeil':{roomId:'sleep_med',floorId:'floor_3'},'Sleep Medicine':{roomId:'sleep_med',floorId:'floor_3'},
+  'Medicina dello Sport':{roomId:'sports_med',floorId:'floor_1'},'Sportmedizin':{roomId:'sports_med',floorId:'floor_1'},'Médecine du Sport':{roomId:'sports_med',floorId:'floor_1'},'Sports Medicine':{roomId:'sports_med',floorId:'floor_1'},
+  'Medicina di Viaggio':{roomId:'travel_med',floorId:'floor_3'},'Reisemedizin':{roomId:'travel_med',floorId:'floor_3'},'Médecine de Voyage':{roomId:'travel_med',floorId:'floor_3'},'Travel Medicine':{roomId:'travel_med',floorId:'floor_3'},
+  'Medicina Riabilitativa':{roomId:'rehabilitation',floorId:'floor_0'},'Rehabilitationsmedizin':{roomId:'rehabilitation',floorId:'floor_0'},'Médecine de Réhabilitation':{roomId:'rehabilitation',floorId:'floor_0'},'Rehabilitation Medicine':{roomId:'rehabilitation',floorId:'floor_0'},
+  'Nefrologia':{roomId:'nephrology',floorId:'floor_2'},'Nephrologie':{roomId:'nephrology',floorId:'floor_2'},'Néphrologie':{roomId:'nephrology',floorId:'floor_2'},'Nephrology':{roomId:'nephrology',floorId:'floor_2'},
+  'Neurologia e Neurochirurgia':{roomId:'neurology',floorId:'floor_2'},'Neurologie und Neurochirurgie':{roomId:'neurology',floorId:'floor_2'},'Neurologie et Neurochirurgie':{roomId:'neurology',floorId:'floor_2'},'Neurology and Neurosurgery':{roomId:'neurology',floorId:'floor_2'},
+  'Nutrizione e Dietetica':{roomId:'nutrition',floorId:'floor_3'},'Ernährung und Diätetik':{roomId:'nutrition',floorId:'floor_3'},'Nutrition et Diététique':{roomId:'nutrition',floorId:'floor_3'},'Nutrition and Dietetics':{roomId:'nutrition',floorId:'floor_3'},
+  'Oftalmologia':{roomId:'ophthalmology',floorId:'floor_3'},'Ophthalmologie':{roomId:'ophthalmology',floorId:'floor_3'},'Ophtalmologie':{roomId:'ophthalmology',floorId:'floor_3'},'Ophthalmology':{roomId:'ophthalmology',floorId:'floor_3'},
+  'Oncologia':{roomId:'oncology',floorId:'floor_2'},'Onkologie':{roomId:'oncology',floorId:'floor_2'},'Oncologie':{roomId:'oncology',floorId:'floor_2'},'Oncology':{roomId:'oncology',floorId:'floor_2'},
+  'Ortopedia e Traumatologia':{roomId:'orthopedics',floorId:'floor_1'},'Orthopädie und Traumatologie':{roomId:'orthopedics',floorId:'floor_1'},'Orthopédie et Traumatologie':{roomId:'orthopedics',floorId:'floor_1'},'Orthopedics and Traumatology':{roomId:'orthopedics',floorId:'floor_1'},
+  'Pediatria':{roomId:'pediatrics',floorId:'floor_2'},'Pädiatrie':{roomId:'pediatrics',floorId:'floor_2'},'Pédiatrie':{roomId:'pediatrics',floorId:'floor_2'},'Pediatrics':{roomId:'pediatrics',floorId:'floor_2'},
+  'Pneumologia':{roomId:'pulmonology',floorId:'floor_2'},'Pneumologie':{roomId:'pulmonology',floorId:'floor_2'},'Pulmonology':{roomId:'pulmonology',floorId:'floor_2'},
+  'Radiologia':{roomId:'radiology',floorId:'floor_0'},'Radiologie':{roomId:'radiology',floorId:'floor_0'},'Radiology':{roomId:'radiology',floorId:'floor_0'},
+  'Reumatologia':{roomId:'rheumatology',floorId:'floor_3'},'Rheumatologie':{roomId:'rheumatology',floorId:'floor_3'},'Rhumatologie':{roomId:'rheumatology',floorId:'floor_3'},'Rheumatology':{roomId:'rheumatology',floorId:'floor_3'},
+  'Urologia':{roomId:'urology',floorId:'floor_1'},'Urologie':{roomId:'urology',floorId:'floor_1'},'Urology':{roomId:'urology',floorId:'floor_1'},
+  'Laboratorio':{roomId:'laboratory',floorId:'floor_0'},'Labor':{roomId:'laboratory',floorId:'floor_0'},'Laboratoire':{roomId:'laboratory',floorId:'floor_0'},'Laboratory':{roomId:'laboratory',floorId:'floor_0'},
+  'Consultori di Salute Sessuale':{roomId:'sex_health',floorId:'floor_3'},'Beratungsstelle für sexuelle Gesundheit':{roomId:'sex_health',floorId:'floor_3'},'Consultations de Santé Sexuelle':{roomId:'sex_health',floorId:'floor_3'},'Sexual Health Counseling':{roomId:'sex_health',floorId:'floor_3'}
+};
+
+// map translations
+const ML={
+  it:{mapCta:'🗺️ Mostra sulla Mappa',destLbl:'Destinazione',posTitle:'📍 La tua posizione attuale',calcLbl:'Calcola',dirTitle:'Indicazioni',noRoute:'Seleziona la tua posizione e premi →',legRoute:'Percorso',legLm:'Punto di riferimento',legConn:'Ascensore / Scale'},
+  de:{mapCta:'🗺️ Auf Karte anzeigen',destLbl:'Ziel',posTitle:'📍 Ihr aktueller Standort',calcLbl:'Berechnen',dirTitle:'Wegbeschreibung',noRoute:'Position wählen und → drücken',legRoute:'Route',legLm:'Orientierungspunkt',legConn:'Aufzug / Treppe'},
+  fr:{mapCta:'🗺️ Voir sur la carte',destLbl:'Destination',posTitle:'📍 Votre position actuelle',calcLbl:'Calculer',dirTitle:'Itinéraire',noRoute:'Choisissez votre position et appuyez →',legRoute:'Parcours',legLm:'Point de repère',legConn:'Ascenseur / Escalier'},
+  en:{mapCta:'🗺️ Show on Map',destLbl:'Destination',posTitle:'📍 Your current location',calcLbl:'Calculate',dirTitle:'Directions',noRoute:'Select your position and press →',legRoute:'Route',legLm:'Landmark',legConn:'Elevator / Stairs'}
+};
+
+let mapDeptName='';
+let viewFloorId=BUILDING.floors[0].floorId;
+let currentRoute=null;
+let svgScale=1,svgPanX=14,svgPanY=10;
+let isPanning=false,panStart=null,panOrigin=null,lastTouchDist=null;
+const CELL=52,PAD=32;
+
+// patch setLang to also update map strings
+const _origSetLang=setLang;
+setLang=function(l){
+  _origSetLang(l);
+  updateMapStrings(l);
+};
+function updateMapStrings(l){
+  const m=ML[l];
+  if(!m) return;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
+  set('mapCtaLbl',m.mapCta);set('mapDestLbl',m.destLbl);set('posRowTitle',m.posTitle);
+  set('calcLbl',m.calcLbl);set('mapDirTitle',m.dirTitle);
+  set('legRoute',m.legRoute);set('legLm',m.legLm);set('legConn',m.legConn);
+  if(!currentRoute) set('mapDirEmpty',m.noRoute);
+  if(document.getElementById('mapSection').style.display!=='none') buildFloorTabs();
+}
+
+// patch showDir to hide map section on each new dept
+const _origShowDir=showDir;
+showDir=function(i){
+  _origShowDir(i);
+  mapDeptName=D[i][cl];
+  currentRoute=null;
+  document.getElementById('mapSection').style.display='none';
+};
+
+function floorLabel(fid){
+  const f=BUILDING.floors.find(x=>x.floorId===fid);
+  if(!f) return fid;
+  return f['label_'+cl]||f.label;
+}
+
+function openMap(){
+  const mapping=DEPT_MAP[mapDeptName];
+  if(!mapping) return;
+  document.getElementById('mapDestVal').textContent=mapDeptName;
+  document.getElementById('mapSection').style.display='block';
+  viewFloorId=mapping.floorId;
+  buildFloorTabs();
+  populatePosSelects();
+  renderFloor(viewFloorId,null);
+  setTimeout(()=>document.getElementById('mapSection').scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+
+function populatePosSelects(){
+  const fs=document.getElementById('posFloor');
+  fs.innerHTML=BUILDING.floors.map(f=>`<option value="${f.floorId}">${floorLabel(f.floorId)}</option>`).join('');
+  fs.value=BUILDING.floors[0].floorId;
+  fillPosRooms(BUILDING.floors[0].floorId);
+}
+function onPosFloorChange(){fillPosRooms(document.getElementById('posFloor').value);}
+function fillPosRooms(fid){
+  const floor=BUILDING.floors.find(f=>f.floorId===fid);
+  document.getElementById('posRoom').innerHTML=floor.rooms.map(r=>`<option value="${r.id}">${r.label}</option>`).join('');
+}
+
+function buildFloorTabs(){
+  document.getElementById('floorTabs').innerHTML=BUILDING.floors.map(f=>
+    `<button class="floor-tab${f.floorId===viewFloorId?' active':''}" onclick="switchFloor('${f.floorId}')">${floorLabel(f.floorId)}</button>`
+  ).join('');
+}
+function switchFloor(fid){viewFloorId=fid;buildFloorTabs();renderFloor(fid,currentRoute);}
+
+function buildGraph(){
+  const nodes={},adj={};
+  BUILDING.floors.forEach(fl=>{
+    fl.nodes.forEach(n=>{nodes[n.id]={...n,floorId:fl.floorId};adj[n.id]=adj[n.id]||[];});
+    fl.edges.forEach(e=>{
+      adj[e.from]=adj[e.from]||[];adj[e.to]=adj[e.to]||[];
+      adj[e.from].push({to:e.to,dist:e.distance});adj[e.to].push({to:e.from,dist:e.distance});
+    });
+  });
+  BUILDING.connectors.forEach(c=>{
+    const ids=c.connections;
+    for(let i=0;i<ids.length;i++) for(let j=0;j<ids.length;j++){
+      if(i===j) continue;
+      adj[ids[i]]=adj[ids[i]]||[];
+      adj[ids[i]].push({to:ids[j],dist:c.type==='elevator'?3:5,connLabel:c.label,connType:c.type});
+    }
+  });
+  return{nodes,adj};
+}
+function dijkstra(graph,start,end){
+  const dist={},prev={},vis=new Set();
+  Object.keys(graph.nodes).forEach(id=>{dist[id]=Infinity;});
+  dist[start]=0;const q=[{id:start,d:0}];
+  while(q.length){
+    q.sort((a,b)=>a.d-b.d);const{id}=q.shift();
+    if(vis.has(id)) continue;vis.add(id);if(id===end) break;
+    (graph.adj[id]||[]).forEach(({to,dist:d})=>{const nd=dist[id]+d;if(nd<dist[to]){dist[to]=nd;prev[to]=id;q.push({id:to,d:nd});}});
+  }
+  if(dist[end]===Infinity) return null;
+  const path=[];let cur=end;while(cur!==undefined){path.unshift(cur);cur=prev[cur];}return path;
+}
+function nodeForRoom(fid,rid){return BUILDING.floors.find(f=>f.floorId===fid)?.nodes.find(n=>n.roomId===rid)?.id||null;}
+function floorIdx(fid){return BUILDING.floors.findIndex(f=>f.floorId===fid);}
+
+function calcRoute(){
+  const mapping=DEPT_MAP[mapDeptName];if(!mapping) return;
+  const pf=document.getElementById('posFloor').value,pr=document.getElementById('posRoom').value;
+  const df=mapping.floorId,dr=mapping.roomId;
+  const sn=nodeForRoom(pf,pr),en=nodeForRoom(df,dr);if(!sn||!en) return;
+  if(sn===en){renderDirPanel([],null,pf,pr,df,dr);return;}
+  const graph=buildGraph(),path=dijkstra(graph,sn,en);
+  if(!path) return;
+  currentRoute={path,graph,pf,pr,df,dr};
+  renderDirPanel(path,graph,pf,pr,df,dr);
+  switchFloor(pf);
+}
+
+function renderDirPanel(path,graph,pf,pr,df,dr){
+  const startLabel=BUILDING.floors.find(f=>f.floorId===pf)?.rooms.find(r=>r.id===pr)?.label||pr;
+  const destLabel=BUILDING.floors.find(f=>f.floorId===df)?.rooms.find(r=>r.id===dr)?.label||dr;
+  const steps=[];
+  steps.push({text:`<strong>${startLabel}</strong>`,sub:floorLabel(pf),dest:false});
+  if(path&&graph){
+    for(let i=0;i<path.length-1;i++){
+      const cur=graph.nodes[path[i]],nxt=graph.nodes[path[i+1]];
+      if(cur.floorId!==nxt.floorId){
+        const edge=(graph.adj[path[i]]||[]).find(e=>e.to===path[i+1]);
+        const icon=edge?.connType==='elevator'?'🛗':'🪜';
+        const dir=floorIdx(nxt.floorId)>floorIdx(cur.floorId)?'↑':'↓';
+        steps.push({text:`${icon} ${dir} <strong>${edge?.connLabel||''}</strong>`,sub:floorLabel(nxt.floorId),dest:false});
+        continue;
+      }
+      if(nxt.landmark&&!nxt.roomId&&!nxt.connector) steps.push({text:`→ ${nxt.landmark}`,sub:'',dest:false});
+    }
+  }
+  steps.push({text:`<strong>${destLabel}</strong>`,sub:floorLabel(df),dest:true});
+  document.getElementById('mapDirSteps').innerHTML=steps.map((s,i)=>`
+    <div class="map-dir-step" style="animation-delay:${i*.04}s">
+      <div class="map-dir-num${s.dest?' dest':''}">${s.dest?'★':i+1}</div>
+      <div><div class="map-dir-text">${s.text}</div>${s.sub?`<div class="map-dir-sub">${s.sub}</div>`:''}</div>
+    </div>`).join('');
+}
+
+function renderFloor(floorId,route){
+  const floor=BUILDING.floors.find(f=>f.floorId===floorId);if(!floor) return;
+  let maxX=0,maxY=0;
+  floor.rooms.forEach(r=>{maxX=Math.max(maxX,r.x+r.width);maxY=Math.max(maxY,r.y+r.height);});
+  floor.nodes.forEach(n=>{maxX=Math.max(maxX,n.x+1);maxY=Math.max(maxY,n.y+1);});
+  floor.landmarks?.forEach(l=>{maxX=Math.max(maxX,l.x+2);maxY=Math.max(maxY,l.y+1);});
+  const W=(maxX+1)*CELL+PAD*2,H=(maxY+1)*CELL+PAD*2;
+  const svg=document.getElementById('mapSvg');
+  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.innerHTML='';
+  const ns='http://www.w3.org/2000/svg';
+  const mk=(tag,attrs,inner)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(inner!=null)e.innerHTML=inner;return e;};
+  const grid=mk('g',{opacity:'0.2'});
+  for(let x=0;x<=maxX+1;x++) grid.appendChild(mk('line',{x1:PAD+x*CELL,y1:PAD,x2:PAD+x*CELL,y2:PAD+(maxY+1)*CELL,stroke:'#94a3b8','stroke-width':'0.6'}));
+  for(let y=0;y<=maxY+1;y++) grid.appendChild(mk('line',{x1:PAD,y1:PAD+y*CELL,x2:PAD+(maxX+1)*CELL,y2:PAD+y*CELL,stroke:'#94a3b8','stroke-width':'0.6'}));
+  svg.appendChild(grid);
+  const mapping=DEPT_MAP[mapDeptName];
+  let posRoomId=null,destRoomId=route?route.dr:mapping?.floorId===floorId?mapping?.roomId:null;
+  if(route){if(route.pf===floorId)posRoomId=route.pr;if(route.df===floorId)destRoomId=route.dr;}
+  floor.rooms.forEach(room=>{
+    const rx=PAD+room.x*CELL,ry=PAD+room.y*CELL,rw=room.width*CELL,rh=room.height*CELL;
+    let fill='#dce8f5',stroke='#a8c0d8',sw='1.5';
+    if(room.id===posRoomId){fill='#cce0ff';stroke='#005da0';sw='2.5';}
+    if(room.id===destRoomId){fill='#d0f5e8';stroke='#16a34a';sw='2.5';}
+    svg.appendChild(mk('rect',{x:rx,y:ry,width:rw,height:rh,rx:'5',fill,stroke,'stroke-width':sw}));
+    const cx=rx+rw/2,cy=ry+rh/2,words=room.label.split(' ');
+    const lines=[],mc=11;let line='';
+    words.forEach(w=>{if((line+' '+w).trim().length>mc&&line){lines.push(line.trim());line=w;}else line=(line+' '+w).trim();});
+    if(line) lines.push(line.trim());
+    const lh=12,sy=cy-(lines.length-1)*lh/2;
+    lines.forEach((ln,li)=>svg.appendChild(mk('text',{x:cx,y:sy+li*lh,'text-anchor':'middle','dominant-baseline':'middle','font-family':"'DM Sans',sans-serif",'font-size':'9.5','font-weight':'600',fill:'#1a2332'},ln)));
+  });
+  floor.landmarks?.forEach(lm=>{
+    const lx=PAD+lm.x*CELL,ly=PAD+lm.y*CELL;
+    const isConn=floor.nodes.find(n=>n.landmark===lm.label&&n.connector);
+    const color=isConn?'#7c3aed':'#e67e00';
+    svg.appendChild(mk('circle',{cx:lx,cy:ly,r:'10',fill:color,opacity:'0.15'}));
+    svg.appendChild(mk('circle',{cx:lx,cy:ly,r:'5',fill:color}));
+    svg.appendChild(mk('text',{x:lx+8,y:ly,'text-anchor':'start','dominant-baseline':'middle','font-family':"'DM Sans',sans-serif",'font-size':'8.5','font-weight':'500',fill:color},lm.label));
+  });
+  if(route){
+    const{path,graph}=route,onFloor=path.filter(id=>graph.nodes[id]?.floorId===floorId);
+    if(onFloor.length>1){
+      let d='';onFloor.forEach((id,i)=>{const n=graph.nodes[id];d+=(i?'L':'M')+`${PAD+n.x*CELL},${PAD+n.y*CELL} `;});
+      svg.appendChild(mk('path',{d,stroke:'#005da0','stroke-width':'10',fill:'none','stroke-linecap':'round','stroke-linejoin':'round',opacity:'0.1'}));
+      const rl=mk('path',{d,stroke:'#005da0','stroke-width':'3.5',fill:'none','stroke-linecap':'round','stroke-linejoin':'round','stroke-dasharray':'8 5'});
+      rl.style.animation='dash .8s linear infinite';svg.appendChild(rl);
+      for(let i=0;i<onFloor.length-1;i++){
+        const a=graph.nodes[onFloor[i]],b=graph.nodes[onFloor[i+1]];
+        const mx=PAD+(a.x+b.x)/2*CELL,my=PAD+(a.y+b.y)/2*CELL,angle=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;
+        svg.appendChild(mk('polygon',{points:'0,-4 7,0 0,4',fill:'#005da0',opacity:'0.6',transform:`translate(${mx},${my}) rotate(${angle})`}));
+      }
+      if(path[0]===onFloor[0]){
+        const sn=graph.nodes[onFloor[0]],sx=PAD+sn.x*CELL,sy=PAD+sn.y*CELL;
+        const pulse=mk('circle',{cx:sx,cy:sy,r:'12',fill:'#005da0',opacity:'0.15'});
+        pulse.style.animation='mpulse 1.5s ease-in-out infinite';svg.appendChild(pulse);
+        svg.appendChild(mk('circle',{cx:sx,cy:sy,r:'7',fill:'#005da0'}));
+        svg.appendChild(mk('circle',{cx:sx,cy:sy,r:'3',fill:'white'}));
+      }
+    }
+  } else if(destRoomId){
+    const dn=floor.nodes.find(n=>n.roomId===destRoomId);
+    if(dn){svg.appendChild(mk('circle',{cx:PAD+dn.x*CELL,cy:PAD+dn.y*CELL,r:'8',fill:'#16a34a',opacity:'0.9'}));svg.appendChild(mk('circle',{cx:PAD+dn.x*CELL,cy:PAD+dn.y*CELL,r:'3.5',fill:'white'}));}
+  }
+  resetView();
+}
+
+function applyT(){document.getElementById('mapSvg').style.transform=`translate(${svgPanX}px,${svgPanY}px) scale(${svgScale})`;}
+function resetView(){svgScale=1;svgPanX=14;svgPanY=10;applyT();}
+function doZoom(f){svgScale=Math.max(0.3,Math.min(5,svgScale*f));applyT();}
+
+(function(){
+  const wrap=document.getElementById('mapInner');
+  wrap.addEventListener('mousedown',e=>{if(e.button!==0)return;isPanning=true;panStart={x:e.clientX,y:e.clientY};panOrigin={x:svgPanX,y:svgPanY};});
+  window.addEventListener('mousemove',e=>{if(!isPanning)return;svgPanX=panOrigin.x+(e.clientX-panStart.x);svgPanY=panOrigin.y+(e.clientY-panStart.y);applyT();});
+  window.addEventListener('mouseup',()=>{isPanning=false;});
+  wrap.addEventListener('wheel',e=>{e.preventDefault();doZoom(e.deltaY<0?1.1:0.9);},{passive:false});
+  wrap.addEventListener('touchstart',e=>{if(e.touches.length===1){isPanning=true;panStart={x:e.touches[0].clientX,y:e.touches[0].clientY};panOrigin={x:svgPanX,y:svgPanY};}else if(e.touches.length===2){isPanning=false;lastTouchDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}},{passive:true});
+  wrap.addEventListener('touchmove',e=>{e.preventDefault();if(e.touches.length===1&&isPanning){svgPanX=panOrigin.x+(e.touches[0].clientX-panStart.x);svgPanY=panOrigin.y+(e.touches[0].clientY-panStart.y);applyT();}else if(e.touches.length===2&&lastTouchDist){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);doZoom(d/lastTouchDist);lastTouchDist=d;}},{passive:false});
+  wrap.addEventListener('touchend',e=>{if(e.touches.length<2)lastTouchDist=null;if(e.touches.length===0)isPanning=false;},{passive:true});
+})();
+</script>
+
+</body>
+</html>
